@@ -1,0 +1,40 @@
+1. Dla tabeli zamowienia(id_produktu, nazwa_produktu, id_klienta, nazwa_klienta, data_zamowienia, cena_produktu, ilość, VAT, suma_brutto, suma_netto) określ wszystkie zależności funkcyjne.
+Przyjmij następujące założenia:
+-VAT różni się w zależności od typu produktu (na przykład książki 5%, pieczywo 8% itd.).
+-Suma brutto to suma netto powiększona o VAT.
+-Zamówienia klientów w tym samym dniu są łączone. Mamy tylko jedno zamówienie dla danego klienta dziennie(zamówienie danego produktu!).
+-Nazwy produktów i nazwy klientów są unikalne.
+
+Zależności funkcyjne:
+id_produktu -> nazwa_produktu, cena_produktu, VAT
+nazwa_produktu -> id_produktu, cena_produktu, VAT
+id_klienta -> nazwa_klienta, data_zamówienia, id_produktu, ilość, suma_netto, suma_brutto
+nazwa_klienta -> id_klienta, data_zamówienia, id_produktu, ilość, suma_netto, suma_brutto
+cena_produktu, ilość -> suma_netto
+cena_produktu, ilość, VAT -> suma_brutto
+
+2. Wypisz klucze kandydujące:
+
+id_klienta
+nazwa_klienta + data_zamówienia + id_produktu + ilość 
+
+3. Dla tabeli pomieszczenia(id_pomieszczenia, numer_pomieszczenia, id_budynku, powierzchnia, liczba_okien, liczba_drzwi, ulica, miasto, kod_pocztowy) określ wszystkie zależności funkcyjne oraz klucze kandydujące.
+Przyjmij następujące założenia:-id_pomieszczenia to autoinkrementowany, unikalnyidentyfikator pomieszczenia w tabeli.
+
+Zależności funkcyje:
+id_pomieszczenia -> numer_pomieszczenia, id_budynku, powierzchnia, liczba_okien, liczba_drzwi, ulica, miasto, kod_pocztowy
+id_budynku -> ulica, miasto, kod_pocztowy
+id_budynku, numer_pomieszczenia -> powierzchnia, liczba_okien, liczba_drzwi, ulica, miasto, kod_pocztowy
+kod_pocztowy -> miasto
+miasto, ulica -> kod_pocztowy
+
+Klucze kandydujące:
+id_pomieszczenia
+id_budynku + numer_pomieszczenia
+
+
+
+
+
+
+
