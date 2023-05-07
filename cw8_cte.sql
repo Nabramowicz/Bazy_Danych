@@ -1,9 +1,9 @@
 USE AdventureWorks2019;
 
--- 1.Wykorzystuj¹c wyra¿enie CTE zbuduj zapytanie, 
---	które znajdzie informacje na temat stawki pracownika 
---	oraz jego danych, a nastêpnie zapisze je do tabeli tymczasowej 
---	TempEmployeeInfo. Rozwi¹¿ w oparciu o AdventureWorks.
+-- 1.WykorzystujÂ¹c wyraÂ¿enie CTE zbuduj zapytanie, 
+--	ktÃ³re znajdzie informacje na temat stawki pracownika 
+--	oraz jego danych, a nastÃªpnie zapisze je do tabeli tymczasowej 
+--	TempEmployeeInfo. RozwiÂ¹Â¿ w oparciu o AdventureWorks.
 
 WITH TempEmployeeInfo(
       NationalIDNumber,
@@ -17,21 +17,21 @@ WITH TempEmployeeInfo(
       VacationHours,
       SickLeaveHours,
       CurrentFlag,
-	  Rate)
+      Rate)
 AS 
 (
 SELECT	NationalIDNumber,
-		LoginID,
-		JobTitle,
-		BirthDate,
-		MaritalStatus,
-		Gender,
-		HireDate,
-		SalariedFlag,
-		VacationHours,
-		SickLeaveHours,
-		CurrentFlag,
-		Rate
+	LoginID,
+	JobTitle,
+	BirthDate,
+	MaritalStatus,
+	Gender,
+	HireDate,
+	SalariedFlag,
+	VacationHours,
+	SickLeaveHours,
+	CurrentFlag,
+	Rate
 FROM AdventureWorks2019.HumanResources.Employee e
 INNER JOIN AdventureWorks2019.HumanResources.EmployeePayHistory eph 
 ON e.BusinessEntityID = eph.BusinessEntityID
@@ -40,8 +40,8 @@ ON e.BusinessEntityID = eph.BusinessEntityID
 SELECT * FROM TempEmployeeInfo;
 
 
--- 2. Uzyskaj informacje na temat przychodów ze sprzeda¿y 
---	wed³ug firmy i kontaktu (za pomoc¹ CTE i bazy AdventureWorksL).
+-- 2. Uzyskaj informacje na temat przychodÃ³w ze sprzedaÂ¿y 
+--	wedÂ³ug firmy i kontaktu (za pomocÂ¹ CTE i bazy AdventureWorksL).
 
 WITH RevenueInfo(
 	CompanyContact,
@@ -50,7 +50,7 @@ WITH RevenueInfo(
 AS 
 (
 SELECT 	CONCAT(CompanyName, ' (', FirstName, LastName, ')') AS CompanyContact,
-		TotalDue AS Revenue
+	TotalDue AS Revenue
 FROM AdventureWorksLT2019.SalesLT.Customer c
 INNER JOIN AdventureWorksLT2019.SalesLT.SalesOrderHeader soh
 ON c.CustomerID = soh.CustomerID
@@ -59,8 +59,8 @@ ON c.CustomerID = soh.CustomerID
 SELECT * FROM RevenueInfo
 ORDER BY CompanyContact;
 
--- 3. Napisz zapytanie, które zwróci wartoœæ sprzeda¿y dla poszczególnych 
---	kategorii produktów. Wykorzystaj CTE i bazê AdventureWorksLT.
+-- 3. Napisz zapytanie, ktÃ³re zwrÃ³ci wartoÅ“Ã¦ sprzedaÂ¿y dla poszczegÃ³lnych 
+--	kategorii produktÃ³w. Wykorzystaj CTE i bazÃª AdventureWorksLT.
 
 WITH SalesByProdCat(
 	Category,
@@ -69,7 +69,7 @@ WITH SalesByProdCat(
 AS
 (
 SELECT pc."Name" AS Category,
-		SUM(ROUND((UnitPrice-UnitPriceDiscount)*OrderQty, 2)) AS SalesValue
+	SUM(ROUND((UnitPrice-UnitPriceDiscount)*OrderQty, 2)) AS SalesValue
 FROM AdventureWorksLT2019.SalesLT.Product p
 INNER JOIN AdventureWorksLT2019.SalesLT.ProductCategory pc
 ON p.ProductCategoryID = pc.ProductCategoryID
