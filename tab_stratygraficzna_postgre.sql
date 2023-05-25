@@ -194,6 +194,7 @@ cyfra INTEGER NOT NULL
 );
 
 INSERT INTO Tabela_stratygraficzna.Dziesiec VALUES
+(0),
 (1),
 (2),
 (3),
@@ -217,13 +218,13 @@ WITH RECURSIVE ID(number)
 AS
 (
 --Non-recursive term
- SELECT 1 AS number
+ SELECT 0 AS number
  UNION ALL
 --Recursive term (połączone z non-recursive term operatorem union all;
 --odwołuje się do samej nazwy CTE)
  SELECT number + 1 
  FROM ID
- WHERE number < 1000000
+ WHERE number <= 1000000
 )
 INSERT INTO Tabela_stratygraficzna.Milion SELECT number FROM ID;
 
