@@ -224,7 +224,7 @@ AS
 --odwołuje się do samej nazwy CTE)
  SELECT number + 1 
  FROM ID
- WHERE number <= 1000000
+ WHERE number < 999999
 )
 INSERT INTO Tabela_stratygraficzna.Milion SELECT number FROM ID;
 
