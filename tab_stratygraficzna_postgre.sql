@@ -187,27 +187,6 @@ Tabela_stratygraficzna.GeoEon eo ON er.id_eon=eo.id_eon;
 
 ALTER TABLE tabela_stratygraficzna.GeoTabela ADD PRIMARY KEY(ID_pietro);
 
---Tabela Dziesiec
-
-CREATE TABLE Tabela_stratygraficzna.Dziesiec(
-cyfra INTEGER NOT NULL
-);
-
-INSERT INTO Tabela_stratygraficzna.Dziesiec VALUES
-(0),
-(1),
-(2),
-(3),
-(4),
-(5),
-(6),
-(7),
-(8),
-(9);
-
-SELECT * FROM Tabela_stratygraficzna.Dziesiec;
-
-
 --Tabela Milion
 
 CREATE TABLE Tabela_stratygraficzna.Milion(
@@ -237,7 +216,6 @@ CREATE INDEX id_epoka ON Tabela_stratygraficzna.GeoEpoka(id_epoka);
 CREATE INDEX id_okres ON Tabela_stratygraficzna.GeoOkres(id_okres);
 CREATE INDEX id_piet ON Tabela_stratygraficzna.GeoPietro(id_pietro);
 CREATE INDEX id_pietro ON Tabela_stratygraficzna.GeoTabela(id_pietro);
-CREATE INDEX cyfra ON Tabela_stratygraficzna.Dziesiec(cyfra);
 CREATE INDEX liczba ON Tabela_stratygraficzna.Milion(liczba);
 
 
