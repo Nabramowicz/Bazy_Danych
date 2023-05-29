@@ -1,11 +1,11 @@
 USE AdventureWorks2019;
 
---1. Napisz procedurê wypisuj¹c¹ do konsoli ci¹g Fibonacciego. 
---Procedura musi przyjmowaæ jako argument wejœciowy liczbê n. 
---Generowanie ci¹gu Fibonacciego musi zostaæ zaimplementowane jako osobna funkcja,
---wywo³ywana przez procedurê.
+--1. Napisz procedurÃª wypisujÂ¹cÂ¹ do konsoli ciÂ¹g Fibonacciego. 
+--Procedura musi przyjmowaÃ¦ jako argument wejÅ“ciowy liczbÃª n. 
+--Generowanie ciÂ¹gu Fibonacciego musi zostaÃ¦ zaimplementowane jako osobna funkcja,
+--wywoÂ³ywana przez procedurÃª.
 
--- v1. - funkcja zwraca tablice z fib, procedura ja wyœwietla (table-valued function) 
+-- v1. - funkcja zwraca tablice z fib, procedura ja wyÅ“wietla (table-valued function) 
 
 --funkcja
 CREATE FUNCTION dbo.FibSeqTab(@num INT)
@@ -87,12 +87,12 @@ BEGIN
 END;
 
 PRINT 'Fibonacci sequence'
-EXEC FibonacciPrintNum @n=45;
+EXEC FibonacciPrintNum 45;
 
 
 
---2. Napisz trigger DML, który po wprowadzeniu danych do tabeli Person
---zmodyfikuje nazwisko tak, aby by³o napisane du¿ymi literami. 
+--2. Napisz trigger DML, ktÃ³ry po wprowadzeniu danych do tabeli Person
+--zmodyfikuje nazwisko tak, aby byÂ³o napisane duÂ¿ymi literami. 
 
 CREATE TRIGGER NewPerson 
 ON Person.Person
@@ -103,7 +103,7 @@ AS
 	WHERE LastName IN (SELECT LastName FROM inserted);
 
 
---¿eby dodaæ dane do Person trzeba najpierw uzupe³nic BusinessEntity o ID (jest ot FK dla Person)
+--Â¿eby dodaÃ¦ dane do Person trzeba najpierw uzupeÂ³nic BusinessEntity o ID (jest ot FK dla Person)
 INSERT INTO Person.BusinessEntity(rowguid)		--Id i ModifiedDate generuje automatycznie system; rowguid to wbudowana funkcja
 VALUES(NEWID());		--generuje nowy rowguid
 
@@ -113,8 +113,8 @@ VALUES(20778, 'IN', 0, 'Natalia', 'Abramowicz', 1);
 SELECT * FROM Person.Person 
 ORDER BY BusinessEntityID DESC;
 
---3. Przygotuj trigger ‘taxRateMonitoring’, który wyœwietli komunikat o b³êdzie, 
---je¿eli nast¹pi zmiana wartoœci w polu ‘TaxRate’o wiêcej ni¿ 30%.
+--3. Przygotuj trigger â€˜taxRateMonitoringâ€™, ktÃ³ry wyÅ“wietli komunikat o bÂ³Ãªdzie, 
+--jeÂ¿eli nastÂ¹pi zmiana wartoÅ“ci w polu â€˜TaxRateâ€™o wiÃªcej niÂ¿ 30%.
 
 CREATE TRIGGER taxRateMonitoring
 ON Sales.SalesTaxRate
