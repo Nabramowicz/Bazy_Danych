@@ -96,7 +96,7 @@ EXEC FibonacciPrintNum 45;
 
 CREATE TRIGGER NewPerson 
 ON Person.Person
-AFTER UPDATE 
+AFTER INSERT 
 AS
 	UPDATE Person.Person
 	SET LastName = UPPER(LastName)
