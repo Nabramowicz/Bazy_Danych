@@ -1,9 +1,9 @@
 USE AdventureWorks2022;
 EXEC sp_MSForEachTable 'ALTER TABLE ? NOCHECK CONSTRAINT ALL'
 
---1. Napisz zapytanie,które wykorzystuje transakcjê (zaczyna j¹), 
---a nastêpnie aktualizuje cenê produktu o ProductID równym 680 w tabeli 
---Production.Product o 10% i nastêpnie zatwierdza transakcjê.
+--1. Napisz zapytanie,ktÃ³re wykorzystuje transakcjÄ™ (zaczyna jÄ…), 
+--a nastÄ™pnie aktualizuje cenÄ™ produktu o ProductID rÃ³wnym 680 w tabeli 
+--Production.Product o 10% i nastÄ™pnie zatwierdza transakcjÄ™.
 
 BEGIN TRANSACTION;
 	UPDATE Production.Product
@@ -17,8 +17,8 @@ FROM Production.Product
 WHERE ProductID = 680;
 
 
---2.Napisz zapytanie, które zaczyna transakcjê, usuwa produkt o ProductID
---równym 707 z tabeli Production.Product, ale nastêpnie wycofuje transakcjê.
+--2.Napisz zapytanie, ktÃ³re zaczyna transakcjÄ™, usuwa produkt o ProductID
+--rÃ³wnym 707 z tabeli Production.Product, ale nastÄ™pnie wycofuje transakcjÄ™.
 
 BEGIN TRANSACTION;
 	DELETE FROM Production.Product
@@ -28,15 +28,15 @@ ROLLBACK;
 SELECT * FROM Production.Product
 WHERE ProductID = 707;
 
---3. Napisz zapytanie, które zaczyna transakcjê, dodaje nowy produkt do tabeli
---Production.Product, a nastêpnie zatwierdza transakcjê.
+--3. Napisz zapytanie, ktÃ³re zaczyna transakcjÄ™, dodaje nowy produkt do tabeli
+--Production.Product, a nastÄ™pnie zatwierdza transakcjÄ™.
 
 BEGIN TRANSACTION;
 	--dodanie nowego indeksu
 	INSERT INTO Production.Product(rowguid)
 	VALUES(NEWID());
 	--dodanie produktu
-	INSERT INTO Production.Product(Name, ProductNumber, MakeFlag, FinishedGoodsFlag, SafetyStockLevel, ReorderPoint, StandardCost, ListPrice, DaysToManufacture, SellStartDate) --niby b³¹d przy name ale sie dodaje :s
+	INSERT INTO Production.Product(Name, ProductNumber, MakeFlag, FinishedGoodsFlag, SafetyStockLevel, ReorderPoint, StandardCost, ListPrice, DaysToManufacture, SellStartDate) --niby bÅ‚Ä…d przy name ale sie dodaje :s
 	VALUES('Nowyyy Produkt', 'NEWw-9999', 0, 0, 1000, 750, '0.00', '0.00', 1, '2023-05-30')
 COMMIT;
 
@@ -44,9 +44,9 @@ COMMIT;
 SELECT * FROM Production.Product
 ORDER BY ProductID DESC;
 
---4. Napisz zapytanie, które zaczyna transakcjê i aktualizuje StandardCost wszystkich 
---produktów w tabeli Production.Product o 10%, je¿eli suma wszystkich StandardCost
---po aktualizacji nie przekracza 50000. W przeciwnym razie zapytanie powinno wycofaæ transakcjê.
+--4. Napisz zapytanie, ktÃ³re zaczyna transakcjÄ™ i aktualizuje StandardCost wszystkich 
+--produktÃ³w w tabeli Production.Product o 10%, jeÅ¼eli suma wszystkich StandardCost
+--po aktualizacji nie przekracza 50000. W przeciwnym razie zapytanie powinno wycofaÄ‡ transakcjÄ™.
 
 BEGIN TRANSACTION;
 	UPDATE Production.Product 
@@ -57,12 +57,12 @@ COMMIT
 	PRINT 'Transakcja odrzucona'
 ROLLBACK;
 
---sprawdzam, czy transakcja powinna zostaæ odrzucona - powinna byæ
+--sprawdzam, czy transakcja powinna zostaÄ‡ odrzucona - powinna byÄ‡
 SELECT SUM(ROUND(StandardCost, 2)) FROM Production.Product
 
---5. Napisz zapytanie SQL, które zaczyna transakcjê i próbuje dodaæ nowy produkt do tabeli
---Production.Product. Jeœli ProductNumber ju¿ istnieje w tabeli, zapytanie powinno
---wycofaæ transakcjê.
+--5. Napisz zapytanie SQL, ktÃ³re zaczyna transakcjÄ™ i prÃ³buje dodaÄ‡ nowy produkt do tabeli
+--Production.Product. JeÅ›li ProductNumber juÅ¼ istnieje w tabeli, zapytanie powinno
+--wycofaÄ‡ transakcjÄ™.
 
 BEGIN TRANSACTION
 	INSERT INTO Production.Product(rowguid)
@@ -79,9 +79,9 @@ COMMIT;
 
 SELECT * FROM Production.Product ORDER BY ProductID DESC;
 
---6. Napisz zapytanie SQL, które zaczyna transakcjê i aktualizuje wartoœæ OrderQty
---dla ka¿dego zamówienia w tabeli Sales.SalesOrderDetail. Je¿eli którykolwiek z zamówieñ
---ma OrderQty równ¹ 0, zapytanie powinno wycofaæ transakcjê.
+--6. Napisz zapytanie SQL, ktÃ³re zaczyna transakcjÄ™ i aktualizuje wartoÅ›Ä‡ OrderQty
+--dla kaÅ¼dego zamÃ³wienia w tabeli Sales.SalesOrderDetail. JeÅ¼eli ktÃ³rykolwiek z zamÃ³wieÅ„
+--ma OrderQty rÃ³wnÄ… 0, zapytanie powinno wycofaÄ‡ transakcjÄ™.
 
 BEGIN TRANSACTION;
 	IF EXISTS(SELECT OrderQty FROM Sales.SalesOrderDetail WHERE OrderQty=0)
@@ -96,13 +96,13 @@ BEGIN
 COMMIT
 END;
 
---sprawdzam, czy transakcja powinna byæ odrzucona - nie powinna byæ 
+--sprawdzam, czy transakcja powinna byÄ‡ odrzucona - nie powinna byÄ‡ 
 SELECT OrderQty FROM Sales.SalesOrderDetail WHERE OrderQty=0;
 
 
---6. Napisz zapytanie SQL, które zaczyna transakcjê i usuwa wszystkie produkty, których
---StandardCost jest wy¿szy ni¿ œredni koszt wszystkich produktów w tabeli Production.Product.
---Je¿eli liczba produktów do usuniêcia przekracza 10, zapytanie powinno wycofaæ transakcjê.
+--7. Napisz zapytanie SQL, ktÃ³re zaczyna transakcjÄ™ i usuwa wszystkie produkty, ktÃ³rych
+--StandardCost jest wyÅ¼szy niÅ¼ Å›redni koszt wszystkich produktÃ³w w tabeli Production.Product.
+--JeÅ¼eli liczba produktÃ³w do usuniÄ™cia przekracza 10, zapytanie powinno wycofaÄ‡ transakcjÄ™.
 
 
 BEGIN TRANSACTION;
@@ -118,7 +118,7 @@ BEGIN
 COMMIT
 END;
 
---sprawdzam czy transakcja powinna byæ odrzucona - powinna byæ
+--sprawdzam czy transakcja powinna byÄ‡ odrzucona - powinna byÄ‡
 SELECT COUNT(StandardCost) FROM Production.Product WHERE StandardCost > (SELECT AVG(StandardCost) FROM Production.Product)
 
 
